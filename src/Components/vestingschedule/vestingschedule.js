@@ -175,8 +175,7 @@ export const Vestingschedule = ({ wallet }) => {
                     {formattedTime}, {fullDay}
                   </td>
                   <td>
-                    {(parseInt(item._claimAmount) * parseInt(userSlots)) /
-                      10 ** 18}{" "}
+                    {(Number(item._claimAmount) * Number(userSlots)) / 10 ** 18}{" "}
                     APX
                   </td>
                   <td>
