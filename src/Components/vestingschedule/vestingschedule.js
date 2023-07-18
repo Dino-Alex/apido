@@ -6,6 +6,7 @@ import { getStageInfo } from "../../hooks/getStageInfo";
 import { getUserSlots } from "../../hooks/getUserSlots";
 import { getUserClaimed } from "../../hooks/getIsClaimed";
 import { claimIdo } from "../../hooks/claimIdo";
+const web3 = require("web3");
 
 export const Vestingschedule = ({ wallet }) => {
   const { size } = useWindowSize({ gameWidth: 1920, gameHeight: 3405 });
@@ -166,6 +167,7 @@ export const Vestingschedule = ({ wallet }) => {
             stageInfo.map((item) => {
               console.log("userSlots", userSlots);
               const [formattedTime, fullDay] = formatTimestamp(item._startTime);
+              const amount = web3.utils.fromWei(item._claimAmount, "ether");
               return (
                 <tr key={item._stageId}>
                   <td>
@@ -175,8 +177,8 @@ export const Vestingschedule = ({ wallet }) => {
                     {formattedTime}, {fullDay}
                   </td>
                   <td>
-                    {(Number(item._claimAmount) * Number(userSlots)) / 10 ** 18}{" "}
-                    APX
+                    {/* {(Number(item._claimAmount) * Number(userSlots)) / 10 ** 18} */}
+                    {amount * Number(userSlots)} APX
                   </td>
                   <td>
                     <a>
