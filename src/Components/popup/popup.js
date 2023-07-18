@@ -16,7 +16,6 @@ import { getBoughtSlots } from "../../hooks/getBoughtSlot";
 const web3 = require("web3");
 
 export const PurchaseModal = ({ isOpened, wallet, onUpdateSlots, onClose }) => {
-  const [approved, setApproved] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [boughtQuantity, setBoughtQuantity] = useState(1);
   const [received, setReceived] = useState("");
@@ -46,7 +45,7 @@ export const PurchaseModal = ({ isOpened, wallet, onUpdateSlots, onClose }) => {
   };
 
   const handleReceivePrice = async (number) => {
-    const quantity = parseInt(number);
+    const quantity = Number(number);
     setPrice(`${quantity * 50} USD`);
     setReceived(`${quantity * 1000} APX`);
   };
@@ -63,7 +62,8 @@ export const PurchaseModal = ({ isOpened, wallet, onUpdateSlots, onClose }) => {
     const quantityInt = parseInt(quantity);
     console.log("quantityInt", quantityInt);
     const value = quantity * 50;
-    const valueInWei = web3.utils.toWei(value, "ether");
+    // const valueInWei = web3.utils.toWei(value, "ether");
+    const valueInWei = value * 10 ** 18;
     try {
       await handleApprove(valueInWei);
       await buyIdo(wallet, quantity);
